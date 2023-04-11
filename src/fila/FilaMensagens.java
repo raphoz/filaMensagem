@@ -6,13 +6,12 @@ import entidades.Mensagem;
 public class FilaMensagens {
 
 	int N = 5;
-	Mensagem dados = new Mensagem[N];
+	
 	//ClassA N = new ClassA(); - um jeito de alocação dinamica
 	int ini, fim, count;
 
 	public void init() {
 		
-
 		ini = fim = 0;
 
 	}
@@ -33,7 +32,7 @@ public class FilaMensagens {
 	}
 
 	
-	public int Dequeue() {
+	public int enqueue() {
 		if(!isEmpty()){
 		 elem = dados[ini];
 		ini = (ini + 1) % N;

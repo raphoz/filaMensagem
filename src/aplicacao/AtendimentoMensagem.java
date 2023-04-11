@@ -12,6 +12,9 @@ public class AtendimentoMensagem {
 		Scanner input = new Scanner(System.in);
 		FilaMensagens filaMensagem = new FilaMensagens();
 		int opcao;
+		String contato, msg, nome;
+		int motivo;
+		
 
 		do {
 			System.out.println("1- Enviar Mensagem \n2- Ler Mensagens \n0- Encerrar atendimento");
@@ -32,49 +35,28 @@ public class AtendimentoMensagem {
 				int opcaoNome = input.nextInt();
 				if (opcaoNome == 1) {
 					System.out.println("Informe seu nome");
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+					nome = input.next();					
 				}
 
-				break;
-			case 2:
-
-				break;
+				do {
+					System.out.print("Informe seu email/telefone: ");
+					contato = input.next();
+					System.out.println("Informe o motivo do contato\n1- Reclamacao \n2- Sugestao");
+					motivo = input.nextInt();
 				
-			case 3:
-			
-			break;
+					System.out.print("Digite a mensagem: ");
+					input.nextLine();
+					msg = input.nextLine();
 				
+				} while (contato == " " || motivo == 0 || msg == null);
+				
+				//System.out.print("Mensagem cadastrada no sistema");
+				break;
 
 			default:
-				System.out.println("Retorno Menu!");
+				System.out.println("Opcao invalida");
 			}
-
 		} while (opcao != 0);
 
-		input.close();
-
 	}
-
 }
