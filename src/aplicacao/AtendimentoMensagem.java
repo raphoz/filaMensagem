@@ -11,7 +11,7 @@ public class AtendimentoMensagem {
 
 		Scanner input = new Scanner(System.in);
 		FilaMensagens filaMensagem = new FilaMensagens();
-		int opcao;
+		int opcao, opcaoAux;
 		String contato, msg, nome;
 		int motivo;
 		
@@ -34,7 +34,7 @@ public class AtendimentoMensagem {
 				System.out.println("1- sim\t 2- nao");
 				int opcaoNome = input.nextInt();
 				if (opcaoNome == 1) {
-					System.out.println("Informe seu nome");
+					System.out.print("Informe seu nome");
 					nome = input.next();					
 				}
 
@@ -50,7 +50,13 @@ public class AtendimentoMensagem {
 				
 				} while (contato == " " || motivo == 0 || msg == null);
 				
-				//System.out.print("Mensagem cadastrada no sistema");
+				System.out.print("Mensagem cadastrada no sistema\nDeseja voltar ao menu?\n1- sim\n2- nao\n");
+				opcaoAux = input.nextInt();
+				if (opcaoAux == 2) {
+					System.out.print("Encerrando");
+					opcao = 0;
+				}
+				
 				break;
 
 			default:
