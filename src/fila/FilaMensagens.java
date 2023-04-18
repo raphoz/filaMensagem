@@ -2,23 +2,18 @@ package fila;
 
 import entidades.Mensagem;
 
-
 public class FilaMensagens {
 
 	int N = 5;
 	Mensagem dados[] = new Mensagem[N];
-	
-	//ClassA N = new ClassA(); - um jeito de alocação dinamica
 	int ini, fim, count;
 
 	public void init() {
-		
 		ini = fim = 0;
 
 	}
 
 	public boolean isEmpty() {
-
 		if (count == 0)
 			return true;
 		else
@@ -32,9 +27,26 @@ public class FilaMensagens {
 			return false;
 	}
 
+	public void insert(Mensagem msg) {
+		if (isFull())
+			System.out.println("Fila Cheia, impossivel inserir");
+		else {
+			dados[fim] = msg;
+			fim += 1;
+			count++;
+		}
 
+	}
 
-	public void Clean() {
+	public String remove() {
+		String msgStr = dados[ini].toString();
+		ini = (ini + 1) % N;
+		count--;
+		return msgStr;
+
+	}
+
+	public void clean() {
 		if (!isEmpty()) {
 			ini = 0;
 			fim = 0;
@@ -42,9 +54,8 @@ public class FilaMensagens {
 		}
 	}
 
-	public int Size() {
+	public int size() {
 		return count;
 	}
-
 
 }
