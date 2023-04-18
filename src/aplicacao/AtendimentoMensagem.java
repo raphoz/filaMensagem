@@ -1,6 +1,5 @@
 package aplicacao;
 
-//Executavel
 import java.util.Scanner;
 import entidades.Mensagem;
 import fila.FilaMensagens;
@@ -13,12 +12,16 @@ public class AtendimentoMensagem {
 		FilaMensagens filaMensagem = new FilaMensagens();
 		FilaMensagens filaReclamacao = new FilaMensagens();
 		FilaMensagens filaSugestao = new FilaMensagens();
-		int opcao, opcaoAux;
+		FilaMensagens filaResolucao = new FilaMensagens();
+
+		int opcao, opcaoAux, opcaoAux2;
+		int opcaoMenu = 0;
 		String contato, msgText, nome;
 		int motivo;
-		
 
 		do {
+			if (filaMensagem.size() > 0)
+				System.out.println(filaMensagem.size() + " Mensagem(ns) nao lidas");
 			System.out.println("1- Enviar Mensagem \n2- Ler Mensagens \n0- Encerrar atendimento");
 			opcao = input.nextInt();
 
@@ -33,6 +36,7 @@ public class AtendimentoMensagem {
 				break;
 			case 1:
 				Mensagem msg = new Mensagem();
+
 				System.out.println("Deseja informar seu nome? ");
 				System.out.println("1- sim\t 2- nao");
 				int opcaoNome = input.nextInt();
@@ -56,12 +60,11 @@ public class AtendimentoMensagem {
 					msgText = input.nextLine();
 					msg.msgText = msgText;
 					filaMensagem.insert(msg);
-					
-					if(motivo == 1) {
+
+					if (motivo == 1) {
 						filaReclamacao.insert(msg);
 						msg.motivoContatoStr = "Reclamacao";
-					}
-					else {
+					} else {
 						filaSugestao.insert(msg);
 						msg.motivoContatoStr = "Sugestao";
 					}
@@ -78,14 +81,71 @@ public class AtendimentoMensagem {
 				break;
 
 			case 2:
-				if(filaMensagem.size() > 0)
-					System.out.println(filaMensagem.remove());
-				else
-					System.out.println("Sem mensagens para serem lidas");
-				break;
+
+				do {
+
+					System.out.println("Reclamacoes: " + filaReclamacao.size() + " Sugestoes: " + filaSugestao.size() + " Resolucoes: " + filaResolucao.size());
+					System.out.println("1- Reclamacoes \n2- Sugestoes \n3- Resolucoes \n0- Voltar");
+					opcaoAux = input.nextInt();
+
+					switch (opcaoAux) {
+					
+					case 0:
+						opcaoMenu = 1;
+						
+					break;
+						
+
+					case 1:
+						if (!filaReclamacao.isEmpty()) {
+							System.out.println("1- Resolver \t2- Transferir para a fila de resolucao");
+							opcaoAux2 = input.nextInt();
+							if (opcaoAux2 == 1) {
+								System.out.println(filaReclamacao.remove().toString() + "\n-----Reclamacao Resolvida-----");
+								filaMensagem.remove();
+						}
+							else {
+								filaResolucao.insert(filaReclamacao.remove());
+								System.out.println("Reclamacao encaminhada para resolucao");
+							}
+
+						} else
+							System.out.println("Sem reclamacoes");
+						break;
+					case 2:
+						if (!filaSugestao.isEmpty()) {
+							System.out.println("1- Resolver \t2- Transferir para a fila de resolucao");
+							opcaoAux2 = input.nextInt();
+							if (opcaoAux2 == 1) {
+								System.out.println(filaSugestao.remove().toString() + "\n-----Sugestao Resolvida-----");
+								filaMensagem.remove();
+							}
+							else {
+								filaResolucao.insert(filaSugestao.remove());
+								System.out.println("Sugestao encaminhada para resolucao");
+							}
+
+						} else
+							System.out.println("Sem sugestoes");
+						break;
+					case 3:
+						if (!filaResolucao.isEmpty()) {
+							System.out.println(filaResolucao.remove().toString() + "\n-----Resolvido-----");
+							filaMensagem.remove();
+						}
+						else
+							System.out.println("Fila Vazia");
+
+						break;
+
+					default:
+						System.out.println("Valor Invalido");
+					}
+
+				} while (opcaoMenu != 1 || !filaMensagem.isEmpty());
 
 			default:
-				System.out.println("Opcao invalida");
+				System.out.println("Menu Inicial");
 			}
 		} while (opcao != 0);
 

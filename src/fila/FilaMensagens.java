@@ -38,8 +38,8 @@ public class FilaMensagens {
 
 	}
 
-	public String remove() {
-		String msgStr = dados[ini].toString();
+	public Mensagem remove() {
+		Mensagem msgStr = dados[ini];
 		ini = (ini + 1) % N;
 		count--;
 		return msgStr;
@@ -57,5 +57,6 @@ public class FilaMensagens {
 	public int size() {
 		return count;
 	}
+	
 
 }
