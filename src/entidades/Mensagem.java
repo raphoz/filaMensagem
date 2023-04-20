@@ -12,7 +12,7 @@ public class Mensagem {
 	
 
 	public String toString() {
-		return "Mensagem nao lida \nNome(opcional): " + nome + ", \nContato: " + contato
+		return "\nMensagem não lida \nNome(opcional): " + nome + ", \nContato: " + contato
 				+ ", \nMotivo do contato: " + motivoContatoStr + ", \nmensagem: " + msgText;
 	}
 
